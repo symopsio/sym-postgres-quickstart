@@ -48,9 +48,9 @@ The [`postgres-lambda`](modules/postgres-lambda) module creates an AWS Lambda fu
 
 Refer to the [`README`](modules/postgres-lambda/README.md) for deployment and configuration details.
 
-### postgres-access-flow module
+### postgres-flow module
 
-The [`postgres-access-flow`](modules/postgres-access-flow) module defines the workflow that your engineers will use to invoke your Postgres Lambda function.
+The [`postgres-flow`](modules/postgres-flow) module defines the workflow that your engineers will use to invoke your Postgres Lambda function.
 
 ## About Sym
 

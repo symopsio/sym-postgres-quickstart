@@ -71,8 +71,8 @@ module "postgres_lambda" {
 }
 
 # A Flow that uses the postgres access Lambda
-module "postgres_access_flow" {
-  source = "../../modules/postgres-access-flow"
+module "postgres_flow" {
+  source = "../../modules/postgres-flow"
 
   flow_vars        = var.flow_vars
   lambda_arn       = module.postgres_lambda.lambda_arn

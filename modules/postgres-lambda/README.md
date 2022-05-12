@@ -26,11 +26,11 @@ $ ./build.sh
 
 ### Password Configuration
 
-Once you run a `terraform apply`, you need to configure the database password that the handler should use to connect to the database. The handler looks up your database password in an [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) Parameter. The Parameter is named based on your Sym runtime name, like `/symops.com/RUNTIME_NAME/PG_PASSWORD`. You can set the value from the console or from the command line:
+Once you run a `terraform apply`, you need to configure the database password that the handler should use to connect to the database. The handler looks up your database password in an [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) Parameter. The Parameter is named based on your Lambda function name, like `/symops.com/FUNCTION_NAME/PG_PASSWORD`. You can set the value from the console or from the command line:
 
 ```bash
 $ aws ssm put-parameter \
-  --name /symops.com/RUNTIME_NAME/PG_PASSWORD \
+  --name /symops.com/FUNCTION_NAME/PG_PASSWORD \
   --value "${PG_PASSWORD}" \
   --type SecureString \
   --overwrite
