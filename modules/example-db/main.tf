@@ -40,7 +40,7 @@ module "db" {
 
   allowed_security_groups = concat(
     var.allowed_security_groups,
-    [aws_security_group.bastion.id]
+    [aws_security_group.db_access.id]
   )
   apply_immediately          = true
   monitoring_interval        = 0
@@ -80,4 +80,24 @@ resource "aws_rds_cluster_parameter_group" "this" {
     name  = "rds.force_ssl"
     value = "1"
   }
+}
+
+# Allow outbound to the example DB
+resource "aws_security_group_rule" "db_egress" {
+  source_security_group_id = module.db.security_group_id
+  security_group_id        = aws_security_group.db_access.id
+
+  description = "To RDS"
+  type        = "egress"
+  protocol    = "tcp"
+  to_port     = module.db.cluster_port
+  from_port   = module.db.cluster_port
+}
+
+# Security group that allows access to the example db
+resource "aws_security_group" "db_access" {
+  name        = "${local.db_name}-access"
+  description = "${local.db_name} access"
+  tags        = var.tags
+  vpc_id      = module.vpc.vpc_id
 }

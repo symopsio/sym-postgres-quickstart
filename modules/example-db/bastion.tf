@@ -42,9 +42,12 @@ module "ec2_bastion_server" {
   name                   = local.bastion_name
   namespace              = var.namespace
   security_group_enabled = false
-  security_groups        = [aws_security_group.bastion.id]
-  ssm_enabled            = true
-  subnets                = module.dynamic_subnets.private_subnet_ids
-  tags                   = var.tags
-  vpc_id                 = module.vpc.vpc_id
+  security_groups = [
+    aws_security_group.bastion.id,
+    aws_security_group.db_access.id
+  ]
+  ssm_enabled = true
+  subnets     = module.dynamic_subnets.private_subnet_ids
+  tags        = var.tags
+  vpc_id      = module.vpc.vpc_id
 }

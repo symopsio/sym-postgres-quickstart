@@ -9,7 +9,7 @@ output "pg_password_key" {
   value       = module.postgres_lambda.pg_password_key
 }
 
-output "lambda_arn" {
+output "pg_lambda_arn" {
   description = "The arn of the lambda function"
   value       = module.postgres_lambda.lambda_arn
 }

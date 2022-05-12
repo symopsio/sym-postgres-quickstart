@@ -10,6 +10,16 @@ variable "db_enabled" {
   default     = false
 }
 
+variable "db_namespace" {
+  description = "Namespace qualifier for example resources"
+  type        = string
+  default     = "sym"
+  validation {
+    condition     = can(regex("[[:alpha:]]+", var.db_namespace))
+    error_message = "Namespace must be alphabetic chars."
+  }
+}
+
 variable "error_channel" {
   description = "The error channel to use to surface Sym errors."
   type        = string
@@ -26,20 +36,16 @@ variable "flow_vars" {
   default     = {}
 }
 
-variable "lambda_subnet_ids" {
-  description = "The subnet IDs to put the lambda function in. You must either enable the example DB or provide subnet IDs here"
+variable "lambda_security_group_ids" {
+  description = "Additional security group IDs for the lambda function."
   type        = list(string)
   default     = []
 }
 
-variable "namespace" {
-  description = "Namespace qualifier for example resources"
-  type        = string
-  default     = "sym"
-  validation {
-    condition     = can(regex("[[:alpha:]]+", var.namespace))
-    error_message = "Namespace must be alphabetic chars."
-  }
+variable "lambda_subnet_ids" {
+  description = "The subnet IDs to put the lambda function in. You must either enable the example DB or provide subnet IDs here"
+  type        = list(string)
+  default     = []
 }
 
 variable "pg_connection_config" {
@@ -56,7 +62,7 @@ variable "pg_target_role" {
 variable "runtime_name" {
   description = "Name to assign to the Sym Runtime and its associated resources."
   type        = string
-  default     = "shared"
+  default     = "prod"
 }
 
 variable "slack_workspace_id" {
