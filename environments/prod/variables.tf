@@ -54,9 +54,11 @@ variable "pg_connection_config" {
   default     = { host = "changeme", port = 5432, user = "changeme" }
 }
 
-variable "pg_target_role" {
-  description = "The target Postgres role to grant/revoke from users"
-  type        = string
+variable "pg_targets" {
+  description = "The target roles that users can request access to"
+  type = list(object(
+    { role_name = string, label = string }
+  ))
 }
 
 variable "runtime_name" {

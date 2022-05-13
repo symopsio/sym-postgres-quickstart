@@ -7,7 +7,7 @@ def format_sql(username: str, event: dict, config: Config) -> sql.Composable:
     """
     Get the right sql statement for the supplied event and user
     """
-    target_role = config.target_role
+    target_role = resolve_role(event)
     event_type = event["event"]["type"]
     if event_type == "escalate":
         return format_grant(target_role, username)
@@ -15,6 +15,12 @@ def format_sql(username: str, event: dict, config: Config) -> sql.Composable:
         return format_revoke(target_role, username)
     else:
         raise RuntimeError(f"Unsupported event type: {event_type}")
+
+
+def resolve_role(event: dict) -> str:
+    """Get the role name from the target name"""
+    full_name = event["fields"]["target"]["name"]
+    return full_name.split("-")[-1]
 
 
 def format_grant(rolename: str, username: str) -> sql.Composable:

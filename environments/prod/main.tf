@@ -39,7 +39,6 @@ module "postgres_lambda" {
   additional_security_group_ids = local.security_group_ids
   function_name                 = format("sym-postgres-%s", module.sym_runtime.environment.name)
   pg_connection_config          = local.connection_config
-  pg_target_role                = var.pg_target_role
   subnet_ids                    = local.subnet_ids
   tags                          = var.tags
 }
@@ -53,4 +52,5 @@ module "postgres_flow" {
   runtime_settings = module.sym_runtime.runtime_settings
   sym_environment  = module.sym_runtime.environment
   tags             = var.tags
+  targets          = var.pg_targets
 }

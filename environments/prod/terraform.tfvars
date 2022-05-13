@@ -25,8 +25,13 @@ pg_connection_config = {
 # is false.
 # lambda_subnet_ids = "subnet-0df09460bfa7e0eff"
 
-# The target Postgres role to grant/revoke from user
-pg_target_role = "readonly"
+# The target roles that users can request access to
+pg_targets = [
+  {
+    role_name = "readonly"
+    label     = "Readonly"
+  }
+]
 
 slack_workspace_id = "CHANGEME" # Slack Workspace where Sym is installed
 

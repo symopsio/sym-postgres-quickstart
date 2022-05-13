@@ -32,15 +32,17 @@ resource "sym_strategy" "this" {
 
   name           = local.flow_name
   integration_id = sym_integration.lambda_context.id
-  targets        = [sym_target.lambda.id]
+  targets        = [for target in sym_target.roles : target.id]
 }
 
-# The Target AWS Lambda groups that your Sym Strategy manages access to.
-resource "sym_target" "lambda" {
+# Create a target for each role that users can request access to
+resource "sym_target" "roles" {
+  for_each = local.targets
+
   type = "aws_lambda_function"
 
-  name  = local.flow_name
-  label = "Postgres"
+  name  = each.key
+  label = each.value["label"]
 
   settings = {
     arn = var.lambda_arn
@@ -74,5 +76,9 @@ locals {
 
   flow_name  = "postgres${local.flow_suffix}"
   flow_label = "Postgres${local.label_suffix}"
-}
 
+  targets = {
+    for target in var.targets :
+    format("%s-%s", local.flow_name, target["role_name"]) => target
+  }
+}

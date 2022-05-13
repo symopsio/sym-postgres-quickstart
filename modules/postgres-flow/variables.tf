@@ -23,3 +23,10 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "targets" {
+  description = "The target roles that users can request access to"
+  type = list(object(
+    { role_name = string, label = string }
+  ))
+}

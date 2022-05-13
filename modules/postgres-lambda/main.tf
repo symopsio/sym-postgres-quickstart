@@ -19,7 +19,6 @@ resource "aws_lambda_function" "this" {
       "PG_HOST"         = var.pg_connection_config["host"]
       "PG_PASSWORD_KEY" = local.pg_password_key
       "PG_PORT"         = var.pg_connection_config["port"]
-      "PG_TARGET_ROLE"  = var.pg_target_role
       "PG_USER"         = var.pg_connection_config["user"]
     }
   }

@@ -15,11 +15,6 @@ variable "pg_connection_config" {
   type        = object({ host = string, port = number, user = string })
 }
 
-variable "pg_target_role" {
-  description = "The target Postgres role to grant/revoke from users"
-  type        = string
-}
-
 variable "subnet_ids" {
   description = "VPC subnet ids for the function"
   type        = list(string)

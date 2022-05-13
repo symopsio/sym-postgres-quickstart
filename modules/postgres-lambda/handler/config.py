@@ -6,7 +6,6 @@ import boto3
 
 @dataclass
 class Config:
-    target_role: str
     pg_host: str
     pg_port: int
     pg_user: str
@@ -18,7 +17,6 @@ def get_config() -> Config:
     Loads configuration from environment and SSM
     """
     return Config(
-        target_role=os.environ["PG_TARGET_ROLE"],
         pg_host=os.environ["PG_HOST"],
         pg_port=os.environ["PG_PORT"],
         pg_user=os.environ["PG_USER"],
